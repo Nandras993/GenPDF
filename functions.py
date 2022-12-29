@@ -2,6 +2,17 @@ from fpdf import FPDF
 
 
 def create_pdf(header, footer, pages, name, folder):
+    """
+    A function to create simple
+    pdf files for printing or for other uses.
+
+    :param header: str,input -Input for header on every page
+    :param footer: str,input -Input for footer on every page
+    :param pages: int(str) -Number of pages
+    :param name: str,input -Input for name of the pdf file
+    :param folder: str,input -Input for destination for the file
+    """
+
     path = f"{folder}{'/' + name + '.pdf'}"
     pdf = FPDF(orientation="P", unit="mm", format="A4")
     pdf.set_auto_page_break(margin=0, auto=False)
@@ -35,6 +46,17 @@ def create_pdf(header, footer, pages, name, folder):
 
 
 def create_pdf_line(header, footer, pages, name, folder):
+    """
+    A function to create simple
+    pdf files with lines for printing or for other uses.
+
+    :param header: str,input -Input for header on every page
+    :param footer: str,input -Input for footer on every page
+    :param pages: int(str) -Number of pages
+    :param name: str,input -Input for name of the pdf file
+    :param folder: str,input -Input for destination for the file
+    """
+
     path = f"{folder}{'/' + name + '.pdf'}"
     pdf = FPDF(orientation="P", unit="mm", format="A4")
     pdf.set_auto_page_break(margin=0, auto=False)
@@ -70,9 +92,7 @@ def create_pdf_line(header, footer, pages, name, folder):
         pdf.set_text_color(180, 180, 180)
         pdf.cell(w=0, h=10, txt=footer, align="R")
 
-
     pdf.output(name=path, dest='f')
-
 
 
 if __name__ == "__main__":

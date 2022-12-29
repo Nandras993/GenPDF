@@ -21,47 +21,58 @@ pages_text = sg.Text("Number of pages:", font="Times")
 pages = sg.Input(font="Times", key="pages",
          tooltip="The number of pages your PDF will have.")
 line = sg.Checkbox("Should the page contain lines?", font="Times", key="line",
-            default=False, background_color="#d50000",
+            default=False, background_color="#d50000", pad=((10, 0), (0, 0)),
             tooltip="If you want your pages to contain lines for writting on them, check this box.")
 create = sg.Button("Create PDF", font="Times, 12", size=(20, 1), key="create",
-                   enable_events=True, pad=((0, 0), (15, 15)), border_width=3)
+                   enable_events=True, pad=((10, 0), (15, 15)), border_width=3)
 
-folder_input = sg.Input(key="folder", font="Times", pad=((53, 0), (30, 30)))
+folder_input = sg.Input(key="folder", font="Times", pad=((53, 0), (10, 30)))
 folder = sg.FolderBrowse("Destination", font="Times", key="folder_browse",
-                         tooltip="Choose the destination for your PDF.")
+                         tooltip="Choose the destination for your PDF.",
+                         pad=((10, 0), (10, 30)))
+
+page_value_error = sg.Text("", font="Times, 14", key="value_error", pad=((30, 0), (10, 10)) )
 
 col_left = sg.Image("")
 col_middle = sg.Column(layout=[[name_text], [header_text], [footer_text], [pages_text]])
 col_right = sg.Column(layout=[[name], [header], [footer], [pages]])
 
-window = sg.Window("GenPDF", layout=[[welcome], [col_middle, col_right], [folder, folder_input], [line], [create]])
+window = sg.Window("GenPDF", size=(535, 400),
+                   layout=[[welcome], [col_middle, col_right], [page_value_error], [folder, folder_input], [line], [create]])
 
 while True:
-    event, values = window.read()
-    print(event, values)
-    if event == sg.WIN_CLOSED:
-        break
-    folder = values["folder"]
-    name = values["name"]
-    pages = int(values["pages"])
-    footer = values["footer"]
-    header = values["header"]
-    line = values["line"]
+    try:
+        event, values = window.read()
+        print(event, values)
+        if event == sg.WIN_CLOSED:
+            break
+        folder = values["folder"]
+        name = values["name"]
+        pages = int(values["pages"])
+        footer = values["footer"]
+        header = values["header"]
+        line = values["line"]
 
-    if values["line"] == False:
-        functions.create_pdf(header, footer, pages, name, folder)
-        window["name"].update(value="")
-        window["header"].update(value="")
-        window["footer"].update(value="")
-        window["folder"].update(value="")
-        window["pages"].update(value="")
-    else:
-        functions.create_pdf_line(header, footer, pages, name, folder)
-        window["name"].update(value="")
-        window["header"].update(value="")
-        window["footer"].update(value="")
-        window["folder"].update(value="")
-        window["pages"].update(value="")
+        if values["line"] == False:
+            functions.create_pdf(header, footer, pages, name, folder)
+            window["name"].update(value="")
+            window["header"].update(value="")
+            window["footer"].update(value="")
+            window["folder"].update(value="")
+            window["pages"].update(value="")
+            window["value_error"].update(value="")
+        else:
+            functions.create_pdf_line(header, footer, pages, name, folder)
+            window["name"].update(value="")
+            window["header"].update(value="")
+            window["footer"].update(value="")
+            window["folder"].update(value="")
+            window["pages"].update(value="")
+            window["value_error"].update(value="")
+    except ValueError:
+        window["value_error"].update(value="Please, enter a valid number for the amount of pages.")
 
+    except FileNotFoundError:
+        window["value_error"].update(value="Please, enter a valid destination path for your file.")
 
 window.close()
