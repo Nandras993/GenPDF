@@ -7,38 +7,38 @@ sg.theme_text_element_background_color("#d50000")
 sg.theme_button_color("#d50000")
 
 welcome = sg.Text("Welcome to GenPDF! Generate a PDF file quickly with me!",
-                  font="Times, 14", pad=((0, 0), (5, 5)))
+                  font="Times, 14", pad=((0, 0), (0, 70)))
 name_text = sg.Text("Name:", font="Times")
-name = sg.Input(font="Times", key="name",
+name = sg.Input(font="Times", key="name", pad=((35, 0), (0, 0)),
          tooltip="This will be the name of your pdf file.")
 header_text = sg.Text("Header:", font="Times")
-header = sg.Input(font="Times", key="header",
+header = sg.Input(font="Times", key="header", pad=((27, 0), (0, 0)),
          tooltip="This will be written on your pdf pages at the top left. Leave it blank if you don't need a header.")
 footer_text = sg.Text("Footer:", font="Times")
-footer = sg.Input(font="Times", key="footer",
+footer = sg.Input(font="Times", key="footer", pad=((31, 0), (0, 0)),
          tooltip="This will be written on your pdf page at the bottom right. Leave it blank if you don't need a footer.")
-pages_text = sg.Text("Number of pages:", font="Times")
-pages = sg.Input(font="Times", key="pages",
+pages_text = sg.Text("Pages:", font="Times")
+pages = sg.Input(font="Times", key="pages", pad=((36, 0), (0, 0)),
          tooltip="The number of pages your PDF will have.")
 line = sg.Checkbox("Should the page contain lines?", font="Times", key="line",
-            default=False, background_color="#d50000", pad=((10, 0), (0, 0)),
+            default=False, background_color="#d50000", pad=((0, 0), (0, 0)),
             tooltip="If you want your pages to contain lines for writting on them, check this box.")
 create = sg.Button("Create PDF", font="Times, 12", size=(20, 1), key="create",
-                   enable_events=True, pad=((10, 0), (15, 15)), border_width=3)
+                   enable_events=True, pad=((0, 0), (15, 15)), border_width=3)
 
-folder_input = sg.Input(key="folder", font="Times", pad=((53, 0), (10, 30)))
+folder_input = sg.Input(key="folder", font="Times", pad=((10, 0), (0, 0)))
 folder = sg.FolderBrowse("Destination", font="Times", key="folder_browse",
                          tooltip="Choose the destination for your PDF.",
-                         pad=((10, 0), (10, 30)))
+                         pad=((0, 0), (0, 0)))
 
-page_value_error = sg.Text("", font="Times, 14", key="value_error", pad=((30, 0), (10, 10)) )
+page_value_error = sg.Text("", font="Times, 14", key="value_error", pad=((0, 0), (10, 10)) )
 
-col_left = sg.Image("")
-col_middle = sg.Column(layout=[[name_text], [header_text], [footer_text], [pages_text]])
-col_right = sg.Column(layout=[[name], [header], [footer], [pages]])
+col_left = sg.Image("3_2.png")
+col_middle = sg.Column(layout=[[welcome], [name_text, name], [header_text, header], [footer_text, footer], [pages_text, pages], [folder, folder_input], [page_value_error], [line], [create]])
+col_right = sg.Column(layout=[[]])
 
-window = sg.Window("GenPDF", size=(535, 400),
-                   layout=[[welcome], [col_middle, col_right], [page_value_error], [folder, folder_input], [line], [create]])
+window = sg.Window("GenPDF", size=(810, 400),
+                   layout=[[col_left, col_middle, col_right]])
 
 while True:
     try:
