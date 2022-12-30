@@ -1,3 +1,7 @@
 .idea
 venv
 files
+/gui.spec
+/dist/
+/build/
+/GenPDF.spec
