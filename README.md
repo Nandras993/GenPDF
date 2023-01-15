@@ -8,7 +8,7 @@ https://github.com/Nandras993/PDF_creator
 
 ### How it looks:
 
-<img src="https://github.com/Nandras993/GenPDF/blob/master/doc/showcase01.png" width="100px" \>
+![showcase01](doc/showcase01.png)
 <br>
 ### Usage:
 
