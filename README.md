@@ -6,3 +6,15 @@ For companies who would run it internally or people who would use only the srcip
 
 https://github.com/Nandras993/PDF_creator
 
+### How it looks:
+
+![showcase01](doc/showcase01.png)
+<br>
+### Usage:
+
+![showcase02](doc/showcase02.gif)
+
+### Result:
+
+![showcase03](doc/showcase03.png)
+
